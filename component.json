@@ -1,0 +1,136 @@
+{
+    "title": "Adyen MarketPay Notification Configuration Service",
+    "description": "The MarketPay Notification Configuration API provides endpoints for configuration a subscription to a marketplace's MarketPay-related notifications. Notifications are sent upon the occurrence of certain events (such as a KYC check completion or a payout completion), and the subscription to these notifications dictates to where they are sent.\n\nFor further information on MarketPay notifications, please visit the [MarketPay documentation](https://docs.adyen.com/developers/marketpay/marketpay-overview).\n## Authentication\nTo connect to the MarketPay API, you must use basic authentication credentials of your web service user. If you don't have one, please contact the [Adyen Support Team](https://support.adyen.com/hc/en-us/requests/new). Then use its credentials to authenticate your request, for example:\n\n```\ncurl\n-U \"ws@Company.YourCompany\":\"YourWsPassword\" \\\n-H \"Content-Type: application/json\" \\\n...\n```\nNote that when going live, you need to generate new web service user credentials to access the [live endpoints](https://docs.adyen.com/developers/api-reference/live-endpoints).\n\n## Versioning\nMarketPay API supports versioning of its endpoints through a version suffix in the endpoint URL. This suffix has the following format: \"vXX\", where XX is the version number.\n\nFor example:\n```\nhttps://cal-test.adyen.com/cal/services/Notification/v1/createNotificationConfiguration\n```",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/adyen.com/NotificationConfigurationService/1/openapi.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://cal-test.adyen.com/cal/services/Notification/v1",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "post_createNotificationConfiguration": {
+            "main": "./lib/actions/post_createNotificationConfiguration.js",
+            "title": "Configure a new subscription to notifications.",
+            "description": "This endpoint is used to create a subscription to MarketPay event notifications. After the subscription is created, the events specified in the configuration will be sent to the URL specified in the configuration. Subscriptions must be configured on a per-event basis (as opposed to, for example, a per-account holder basis), so all event notifications of a marketplace and of a given type will be sent to the same endpoint(s). A marketplace may have multiple endpoints if desired; an event notification may be sent to as many or as few different endpoints as configured.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_createNotificationConfiguration.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_deleteNotificationConfigurations": {
+            "main": "./lib/actions/post_deleteNotificationConfigurations.js",
+            "title": "Delete an existing notification subscription configuration.",
+            "description": "This endpoint is used to delete an existing notification subscription configuration. After the subscription is deleted, no further event notifications will be sent to the URL that was in the subscription.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_deleteNotificationConfigurations.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_getNotificationConfiguration": {
+            "main": "./lib/actions/post_getNotificationConfiguration.js",
+            "title": "Retrieve an existing notification subscription configuration.",
+            "description": "This endpoint is used to retrieve the details of the configuration of a notification subscription.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_getNotificationConfiguration.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_getNotificationConfigurationList": {
+            "main": "./lib/actions/post_getNotificationConfigurationList.js",
+            "title": "Retrive a list of existing notification subscription configurations.",
+            "description": "This endpoint is used to retrieve the details of the configurations of all of the notification subscriptions in the marketplace of the executing user.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_getNotificationConfigurationList.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_testNotificationConfiguration": {
+            "main": "./lib/actions/post_testNotificationConfiguration.js",
+            "title": "Test an existing notification configuration.",
+            "description": "This endpoint is used to test an existing notification subscription configuration. For each event type specified, a test notification will be generated and sent to the URL configured in the subscription specified.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_testNotificationConfiguration.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "post_updateNotificationConfiguration": {
+            "main": "./lib/actions/post_updateNotificationConfiguration.js",
+            "title": "Update an existing notification subscription configuration.",
+            "description": "This endpoint is used to update an existing notification subscription configuration. If updating the event types, all event types desired must be provided, otherwise the previous event type configuration will be overwritten.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/post_updateNotificationConfiguration.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

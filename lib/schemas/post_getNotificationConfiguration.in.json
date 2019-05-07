@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "notificationId": {
+                    "description": "The ID of the notification subscription configuration whose details are to be retrieved.",
+                    "format": "int64",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "notificationId"
+            ],
+            "type": "object"
+        }
+    }
+}

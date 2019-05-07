@@ -1,0 +1,106 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "configurationDetails": {
+                    "description": "Details of the notification subscription configuration to be updated.",
+                    "properties": {
+                        "active": {
+                            "description": "Indicates whether the notification subscription is active.",
+                            "type": "boolean"
+                        },
+                        "apiVersion": {
+                            "description": "The API version of the notification to send.",
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "description": {
+                            "description": "A description of the notification subscription configuration.\n>Required when creating a configuration, forbidden when updating a configuration.",
+                            "type": "string"
+                        },
+                        "eventConfigs": {
+                            "description": "The types of events whose notifications apply to this configuration.",
+                            "items": {
+                                "properties": {
+                                    "eventType": {
+                                        "description": "The type of event triggering the notification.\n>Permitted values: `ACCOUNT_HOLDER_CREATED`, `ACCOUNT_CREATED`, `ACCOUNT_UPDATED`, `ACCOUNT_HOLDER_UPDATED`, `ACCOUNT_HOLDER_STATUS_CHANGE`, `ACCOUNT_HOLDER_VERIFICATION`, `ACCOUNT_HOLDER_LIMIT_REACHED`, `ACCOUNT_HOLDER_PAYOUT`, `PAYMENT_FAILURE`, `SCHEDULED_REFUNDS`, `REPORT_AVAILABLE`, `TRANSFER_FUNDS`, `BENEFICIARY_SETUP`, `COMPENSATE_NEGATIVE_BALANCE`.",
+                                        "enum": [
+                                            "ACCOUNT_CREATED",
+                                            "ACCOUNT_HOLDER_CREATED",
+                                            "ACCOUNT_HOLDER_LIMIT_REACHED",
+                                            "ACCOUNT_HOLDER_PAYOUT",
+                                            "ACCOUNT_HOLDER_STATUS_CHANGE",
+                                            "ACCOUNT_HOLDER_UPDATED",
+                                            "ACCOUNT_HOLDER_VERIFICATION",
+                                            "ACCOUNT_UPDATED",
+                                            "BENEFICIARY_SETUP",
+                                            "COMPENSATE_NEGATIVE_BALANCE",
+                                            "PAYMENT_FAILURE",
+                                            "REPORT_AVAILABLE",
+                                            "SCHEDULED_REFUNDS",
+                                            "TRANSFER_FUNDS"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "includeMode": {
+                                        "description": "Indicates whether the specified eventType is to be sent to the endpoint or all events other than the specified eventType (and other specified eventTypes) are to be sent.\n>Permitted values: `INCLUDE`, `EXCLUDE`.\n>- `INCLUDE`: send the specified eventType.\n>- `EXCLUDE`: send all eventTypes other than the specified eventType (and other eventTypes marked with `EXCLUDE`).",
+                                        "enum": [
+                                            "EXCLUDE",
+                                            "INCLUDE"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "eventType",
+                                    "includeMode"
+                                ]
+                            },
+                            "type": "array"
+                        },
+                        "notificationId": {
+                            "description": "The ID of the configuration.\n>Required if updating an existing configuration, ignored during the creation of a configuration.",
+                            "format": "int64",
+                            "type": "integer"
+                        },
+                        "notifyPassword": {
+                            "description": "The password to use when accessing the notifyURL with the specified username.",
+                            "type": "string"
+                        },
+                        "notifyURL": {
+                            "description": "The URL to which the notifications are to be sent.",
+                            "type": "string"
+                        },
+                        "notifyUsername": {
+                            "description": "The username to use when accessing the notifyURL.",
+                            "type": "string"
+                        },
+                        "sslProtocol": {
+                            "description": "The SSL protocol employed by the endpoint.\n>Permitted values: `SSL`, `SSLv3`, `SSLInsecureCiphers`, `TLS`, `TLSv10`, `TLSv10InsecureCiphers`, `TLSv11`, `TLSv12`.",
+                            "enum": [
+                                "SSL",
+                                "SSLInsecureCiphers",
+                                "SSLv3",
+                                "TLS",
+                                "TLSv10",
+                                "TLSv10InsecureCiphers",
+                                "TLSv11",
+                                "TLSv12"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "eventConfigs",
+                        "notifyURL"
+                    ]
+                }
+            },
+            "required": [
+                "configurationDetails"
+            ],
+            "type": "object"
+        }
+    }
+}
